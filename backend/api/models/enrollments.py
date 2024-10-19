@@ -6,9 +6,9 @@ from backend.api.core.settings import Settings
 from backend.api.database.database import Base
 
 class EnrollmentModel(BaseModel):
-    student_id: str
+    student_id: int
     course_id: str
-    grade: Optional[str] = None
+    grade: Optional[int] = None
 
 class EnrollmentModelDB(Base):
     __tablename__ = "enrollments"

@@ -8,7 +8,7 @@ from backend.api.database.database import Base
 class CourseModel(BaseModel):
     course_id: str
     course_name: str
-    teacher_id: int
+    teacher_id: str
     picture_path: Optional[str] = None
 
 
