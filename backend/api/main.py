@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 import backend.api.database.database as db
@@ -11,6 +12,15 @@ from backend.api.routes.courses_route import router as courses_router
 from backend.api.routes.enrollments_route import router as enrollments_router
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Include the car routes
 app.include_router(students_router, prefix="/students", tags=["students"])

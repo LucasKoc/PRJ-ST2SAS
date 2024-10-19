@@ -44,5 +44,6 @@ Option can be updated in the `docker-compose.yaml` file.
 - [wait-for-it.sh](https://github.com/vishnubob/wait-for-it) used for waiting for the database to be ready before starting the API.
 - [FastAPI](https://fastapi.tiangolo.com/) used for the API.
 - [React.js](https://reactjs.org/) used for the Frontend.
+- [DaisyUI](https://daisyui.com/) used for the CSS framework.
 - [PostgresSQL](https://www.postgresql.org/) used for the database.
 - [Docker](https://www.docker.com/) used for the containers.

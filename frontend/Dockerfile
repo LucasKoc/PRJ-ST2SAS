@@ -1,7 +1,28 @@
-FROM nginx:latest
+FROM node:23.0 as build
+
+# Working directory
+WORKDIR /app
+
+# Copy the package.json file
+COPY package.json .
+
+# Install the dependencies
+RUN npm install
+
+# Copy the source code
+COPY . .
+
+# Build the application
+RUN npm run build
+
+FROM nginx:stable as production
 LABEL authors="lucas"
-WORKDIR /usr/share/nginx/html
-# Remember build Frontend before executing DockerFile
-# COPY ./build/ .
-EXPOSE 3000
+
+# Copy the build files to the working directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port - APP Port
+EXPOSE 80
+
+# Set the entrypoint to use nginx
 CMD ["nginx", "-g", "daemon off;"]
