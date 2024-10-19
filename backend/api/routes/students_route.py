@@ -1,11 +1,10 @@
-from binascii import Error
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.orm import Session
 
 from backend.api.database.database import get_db
 from backend.api.models.errors import ErrorResponse
-from backend.api.models.students import StudentModel, StudentModelDB
+from backend.api.models.students import StudentModel
 from backend.api.services.students_services import create_student, get_students, get_student
 
 router = APIRouter()
@@ -20,11 +19,13 @@ def create_student_request(student: StudentModel, db: Session = Depends(get_db),
             if get_student(student.student_id, db):
                 raise HTTPException(status_code=400, detail="Student already registered")
         except HTTPException as e:
-            pass
+            if e.status_code == 404:
+                pass
+            else:
+                raise e
         except Exception as e:
             raise HTTPException(status_code=400, detail=str(e))
         result = create_student(student, db)
-        response.status_code = status.HTTP_201_CREATED
         return result
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

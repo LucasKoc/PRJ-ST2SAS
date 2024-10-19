@@ -6,7 +6,7 @@ from backend.api.core.settings import Settings
 from backend.api.database.database import Base
 
 class TeacherModel(BaseModel):
-    teacher_id: int
+    teacher_id: str
     first_name: str
     last_name: str
     school_email: str
