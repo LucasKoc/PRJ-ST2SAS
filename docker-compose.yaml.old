@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  backend:
+    image: prjst2sas-backend
+    container_name: prjst2sas-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=9670395335672399139331544411282
+      - POSTGRES_PASSWORD=IeN2mgXSmw4XzxR5QY97EgAkIYQp9JU
+      - POSTGRES_DB=prjst2sas
+      - POSTGRES_SCHEMA=school
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5432
+      - API_PORT=3000
+      - API_HOST=0.0.0.0
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+        - "3000:3000"
+        - "5432:5432"
+    networks:
+        - prjst2sas-network
+
+  frontend:
+    image: prjst2sas-frontend
+    container_name: prjst2sas-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+        - ./frontend:/app
+    ports:
+      - "8080:80"
+      - "80:80"
+    networks:
+      - prjst2sas-network
+
+networks:
+  prjst2sas-network:
+    driver: bridge
+
+volumes:
+    db-data: {}

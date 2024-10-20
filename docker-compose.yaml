@@ -1,46 +1,54 @@
 version: '3.8'
 
 services:
+  # Service for the backend - API App and Postgres
   backend:
-    image: prjst2sas-backend
+    # Image for the backend - Pull from Docker Hub
+    image: 450666049652775641901333182796/prjst2sas-backend:stable
+    # Container name
     container_name: prjst2sas-backend
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    # Environment variables for API
     environment:
+      # Postgres environment variables
       - POSTGRES_USER=9670395335672399139331544411282
       - POSTGRES_PASSWORD=IeN2mgXSmw4XzxR5QY97EgAkIYQp9JU
       - POSTGRES_DB=prjst2sas
       - POSTGRES_SCHEMA=school
       - POSTGRES_HOST=localhost
       - POSTGRES_PORT=5432
+
+      # API environment variables
       - API_PORT=3000
       - API_HOST=0.0.0.0
+    # Volumes for the backend - To save postgreSQL data
     volumes:
       - db-data:/var/lib/postgresql/data
-    ports:
-        - "3000:3000"
-        - "5432:5432"
-    networks:
-        - prjst2sas-network
 
+    # Ports for the backend
+    ports:
+      - "3000:3000" # API
+      - "5432:5432" # Postgres - Optional for external access
+    networks:
+      - prjst2sas-network
+
+  # Service for the frontend - React App
   frontend:
-    image: prjst2sas-frontend
+    # Image for the frontend - Pull from Docker Hub
+    image: 450666049652775641901333182796/prjst2sas-frontend:stable
+    # Container name
     container_name: prjst2sas-frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-        - ./frontend:/app
+    # Environment variables for frontend - nginx server
     ports:
       - "8080:80"
       - "80:80"
     networks:
       - prjst2sas-network
 
+# Networks for the services - For communication between services
 networks:
   prjst2sas-network:
     driver: bridge
 
+# Volumes for the services
 volumes:
-    db-data: {}
+  db-data: {} # No shared data, used for data persistence if container is removed

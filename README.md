@@ -3,6 +3,7 @@
 
 ## Description
 
+Note: This is not the report of the project. The report can be found in the `Report` .
 This project is about deploying multiple application using containers, and permit them to communicate with each other.
 
 Here we have two containers:
@@ -38,6 +39,26 @@ The data is persisted in the PostgresSQL database. The data is stored in a volum
 To access the API, default is `http://localhost:3000/` (Container A).
 To access the Frontend, default is `http://localhost:8000/` (Container B).
 Option can be updated in the `docker-compose.yaml` file.
+
+## Docker Images
+
+The Docker images are built using the Dockerfile in the `frontend` and `backend` folders.
+The images are built using the following command:
+```bash
+docker build -t 450666049652775641901333182796/prjst2sas-frontend:stable frontend
+docker build -t 450666049652775641901333182796/prjst2sas-backend:stable backend
+```
+Docker images have been pushed to Docker Hub:
+```bash
+docker push 450666049652775641901333182796/prjst2sas-frontend:stable
+docker push 450666049652775641901333182796/prjst2sas-backend:stable
+```
+
+Links:
+- [Frontend Docker Image](https://hub.docker.com/repository/docker/450666049652775641901333182796/prjst2sas-frontend/general)
+- [Backend Docker Image](https://hub.docker.com/repository/docker/450666049652775641901333182796/prjst2sas-backend/general)
+
+
 
 ## Tools/Bibliography
 
