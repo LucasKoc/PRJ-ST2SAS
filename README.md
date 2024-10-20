@@ -59,7 +59,6 @@ Links:
 - [Backend Docker Image](https://hub.docker.com/repository/docker/450666049652775641901333182796/prjst2sas-backend/general)
 
 
-
 ## Tools/Bibliography
 
 - [wait-for-it.sh](https://github.com/vishnubob/wait-for-it) used for waiting for the database to be ready before starting the API.
@@ -68,3 +67,19 @@ Links:
 - [DaisyUI](https://daisyui.com/) used for the CSS framework.
 - [PostgresSQL](https://www.postgresql.org/) used for the database.
 - [Docker](https://www.docker.com/) used for the containers.
+
+## Example of backend/.env file
+
+If you want to run the backend locally, you need to create a `.env` file in the `backend` folder with the following content:
+```bash
+POSTGRES_USER=9670395335672399139331544411282
+POSTGRES_PASSWORD=IeN2mgXSmw4XzxR5QY97EgAkIYQp9JU
+POSTGRES_SCHEMA=school
+POSTGRES_DB=prjst2sas
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+
+API_PORT=3000
+API_HOST=0.0.0.0
+```
+**Don't forget to enable dotenv.load_dotenv() in backend/core/settings.py**
