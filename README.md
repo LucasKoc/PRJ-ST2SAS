@@ -1,5 +1,5 @@
 # PRJ-ST2SAS
- Project - ST2SAS - Docker Containers (I2 - 2425S7)
+ Project - ST2SAS - Docker Containers (I2 - 2425S7) - 2024/2025
 
 ## Description
 
@@ -10,11 +10,42 @@ Here we have two containers:
 - **Container A**: Our NodeJS (React.js) application
 - **Container B**: Our Backend with API (FastAPI) + PostgresSQL database
 
+## Run the project
 To deploy the containers, we use Docker Compose.
 Run the following command to deploy the containers:
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
+## About the project
+
+This project is about having different services running in separated containers. All of this
+can process can be managed by one file: docker-compose.yaml file.
+In our project, there will be two containers running as prescribed by the subject:
+1. Docker Container A - Frontend: will run the frontend of our project.
+- Based on: Node.js (v22.9.0), React, Tailwind + DaisyUI
+- Using port: 80
+2. Docker Container B – Backend: will run the backend of our project.
+     Part 1 – API REST:
+     - Running on Python (3.12) with FastAPI for the REST service
+    - Using port: 3000
+
+     Part 2 – PostgreSQL:
+      - Version: 17.0
+      - Using port: 5432
+
+###  Machine Characteristics
+1. Machine 1 – Used for the development:
+- OS: MacOS Sequoia Version 15.1 Beta (24B5077a)
+- Docker version 27.2.0, build 3ab4256
+- Hypervisor (used for tests purpose):
+- Vagrant - spox/ubuntu-arm (1.0.0) – VMWare Fusion 13.5.2
+- Docker version 27.3.1, build ce12230
+- Ports:
+    1. 8080:80
+    2. 3000:3000
+2. Machine 2 – Used for testing:
+- OS: Windows 10 22H2 19045.5011
+- Docker version 27.2.0, build 3ab4256
 
 ## Container A
 
@@ -40,6 +71,26 @@ To access the API, default is `http://localhost:3000/` (Container A).
 To access the Frontend, default is `http://localhost:8000/` (Container B).
 Option can be updated in the `docker-compose.yaml` file.
 
+## Steps executed by Docker compose
+
+1. Define the services
+   1. backend
+       - Pull the backend image from Docker Hub 
+       - Named the container **prjst2sas-backend**
+       - Set the environment variables
+       - Set the volume
+       - Set the ports (API , Postgres)
+       - Connect to the network **prjst-network**
+   2. frontend
+       - Pull the frontend image from Docker Hub
+       - Named the container **prjst2sas-frontend**
+       - Set the ports (nginx)
+       - Connect to the network **prjst-network**
+2. network
+    - Create the network **prjst-network**
+    - use the driver **bridge**
+3. volumes
+    - Create the volume **db-data**
 ## Docker Images
 
 The Docker images are built using the Dockerfile in the `frontend` and `backend` folders.
@@ -83,3 +134,9 @@ API_PORT=3000
 API_HOST=0.0.0.0
 ```
 **Don't forget to enable dotenv.load_dotenv() in backend/core/settings.py**
+
+## Contributors
+
+- Lucas KOCOGLU
+- Maxime BOULLE
+- Nicolas LAHIMASY
