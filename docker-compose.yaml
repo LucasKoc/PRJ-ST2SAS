@@ -9,11 +9,12 @@ services:
     container_name: prjst2sas-backend
     # Environment variables for API
     environment:
-      # Postgres environment variables
+      # Postgres environment variables, credentials for the database
       - POSTGRES_USER=9670395335672399139331544411282
       - POSTGRES_PASSWORD=IeN2mgXSmw4XzxR5QY97EgAkIYQp9JU
       - POSTGRES_DB=prjst2sas
       - POSTGRES_SCHEMA=school
+      # Postgres connection variables
       - POSTGRES_HOST=localhost
       - POSTGRES_PORT=5432
 
@@ -47,6 +48,7 @@ services:
 # Networks for the services - For communication between services
 networks:
   prjst2sas-network:
+    # Driver for the network, using bridge for container communication
     driver: bridge
 
 # Volumes for the services
